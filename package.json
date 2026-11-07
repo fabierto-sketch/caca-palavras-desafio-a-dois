@@ -1,0 +1,25 @@
+{
+  "name": "caca-palavras-desafio-a-dois",
+  "version": "1.0.0",
+  "description": "CAÇA-PALAVRAS ONLINE – DESAFIO A DOIS: caça-palavras para duas pessoas, a jogar juntas ou uma contra a outra, com chat e videochamada.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test/run-tests.js",
+    "test:e2e": "node test/e2e.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.1"
+  },
+  "license": "MIT",
+  "private": true
+}

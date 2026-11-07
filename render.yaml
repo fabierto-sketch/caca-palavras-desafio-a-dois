@@ -1,0 +1,18 @@
+# Blueprint do Render (Dashboard > New > Blueprint) — opcional: também pode
+# criar o Web Service à mão (ver README.md). A base de dados persistente é
+# indicada em DATABASE_URL (Neon gratuito recomendado).
+services:
+  - type: web
+    name: caca-palavras-desafio-a-dois
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        sync: false

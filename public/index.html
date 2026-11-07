@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6efe2" />
+  <meta name="description" content="Caça-Palavras Online – Desafio a Dois: olhos atentos, mente rápida e palavras escondidas. Jogar juntos ou um contra o outro, com chat e videochamada." />
+  <title>Caça-Palavras Online – Desafio a Dois</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Lexend:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="light">
+  <svg class="sprite" aria-hidden="true">
+    <defs>
+      <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
+      <symbol id="i-door" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5M10 17l5-5-5-5M15 12H3"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></symbol>
+      <symbol id="i-sound-off" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></g></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></symbol>
+      <symbol id="i-mic-off" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M9 9v3a3 3 0 0 0 5.1 2.1M15 9.3V6a3 3 0 0 0-5.7-1.3M5 11a7 7 0 0 0 11.2 5.6M19 11a7 7 0 0 1-.6 2.8M12 18v3M8 21h8"/></symbol>
+      <symbol id="i-cam" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M15 10l5-3v10l-5-3M4 6h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+      <symbol id="i-cam-off" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M15 10l5-3v10l-2.2-1.3M10.5 6H13a2 2 0 0 1 2 2v2.5M15 15.5V16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+      <symbol id="i-phone-off" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M10.7 13.3a16 16 0 0 0 3.3 2.5l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-3.3-2.7M5.2 13.8A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8M22 2L2 22"/></symbol>
+      <symbol id="i-volume" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></symbol>
+      <symbol id="i-expand" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+      <symbol id="i-smile" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></g></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-history" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2"/></symbol>
+      <symbol id="i-exit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 6L6 18M6 6l12 12"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol>
+      <symbol id="i-rotate" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></symbol>
+      <symbol id="i-dice" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></g></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></symbol>
+      <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></g></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 12.5l5 5L20 6.5"/></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.3 1 2.1V16h6v-.4c0-.8.4-1.5 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+      <symbol id="i-music" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></symbol>
+      <symbol id="i-crown" viewBox="0 0 24 24"><path fill="currentColor" d="M3 18 2 7l5 4 5-7 5 7 5-4-1 11z"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M5 12h14"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21C5 15 2 11.5 2 8a5 5 0 0 1 10-1 5 5 0 0 1 10 1c0 3.5-3 7-10 13z"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><g fill="currentColor"><rect x="6" y="4.5" width="4" height="15" rx="1.4"/><rect x="14" y="4.5" width="4" height="15" rx="1.4"/></g></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></g></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></g></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.2 2"/></g></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></g></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2L2.9 9.4l6.3-.9z"/></symbol>
+      <symbol id="i-sword" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M9.5 6.5L21 18V21h-3"/></g></symbol>
+      <symbol id="i-hands" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.9c0 5.6-7.5 10-7.5 10z"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Fundo: azulejo discreto e luz quente -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="bg-tiles"></div>
+    <div class="bg-glow g1"></div><div class="bg-glow g2"></div>
+    <div class="bg-stars"></div>
+    <div class="bg-letters" id="bg-letters"></div>
+  </div>
+
+  <!-- ===================== BARRA DE TOPO ===================== -->
+  <header class="topbar" id="topbar">
+    <a href="/" class="brand" id="brand-home" aria-label="Página inicial">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span class="brand-text">Caça-Palavras <em>a Dois</em></span>
+    </a>
+    <div class="top-room" id="top-room" hidden>
+      <span class="room-code-chip" id="top-code" title="Código da sala"></span>
+      <span class="presence" id="top-presence"></span>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-stats" title="Estatísticas e recordes" aria-label="Estatísticas e recordes"><svg class="ico"><use href="#i-chart"/></svg></button>
+      <button class="icon-btn" id="btn-music" title="Música ambiente" aria-label="Música ambiente" aria-pressed="false"><svg class="ico"><use href="#i-music"/></svg></button>
+      <button class="icon-btn" id="btn-sound" title="Som e volume" aria-label="Som e volume"><svg class="ico"><use href="#i-sound"/></svg></button>
+      <button class="icon-btn" id="btn-theme" title="Modo claro / escuro" aria-label="Alternar modo claro e escuro"><svg class="ico"><use href="#i-moon"/></svg></button>
+    </div>
+    <div class="popover" id="sound-pop" hidden>
+      <label class="switch-row"><span>Efeitos sonoros</span><input type="checkbox" id="opt-sfx" checked /></label>
+      <label class="range-row"><span>Volume</span><input type="range" id="opt-volume" min="0" max="100" value="70" /></label>
+      <label class="switch-row"><span>Música ambiente</span><input type="checkbox" id="opt-music" /></label>
+      <label class="range-row"><span>Volume da música</span><input type="range" id="opt-music-vol" min="0" max="100" value="35" /></label>
+      <label class="switch-row"><span>Animações</span><input type="checkbox" id="opt-anim" checked /></label>
+    </div>
+  </header>
+
+  <svg class="sprite" aria-hidden="true">
+    <defs>
+      <symbol id="logo-mark" viewBox="0 0 48 48">
+        <rect x="2" y="2" width="44" height="44" rx="12" fill="var(--logo-bg)"/>
+        <g fill="none" stroke="var(--logo-line)" stroke-width="1" opacity=".5"><path d="M17 4v40M31 4v40M4 17h40M4 31h40"/></g>
+        <path d="M10.5 37.5 L37.5 10.5" stroke="var(--x)" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+        <path d="M10.5 24 L37.5 24" stroke="var(--o)" stroke-width="9" stroke-linecap="round" opacity=".5"/>
+        <g font-family="Lexend, sans-serif" font-weight="700" font-size="9.5" fill="var(--logo-ink)" text-anchor="middle">
+          <text x="10.5" y="13.8">A</text><text x="24" y="13.8">M</text><text x="37.5" y="13.8">O</text>
+          <text x="10.5" y="27.3">S</text><text x="24" y="27.3">E</text><text x="37.5" y="27.3">M</text>
+          <text x="10.5" y="40.8">P</text><text x="24" y="40.8">R</text><text x="37.5" y="40.8">E</text>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main id="main">
+    <!-- ===================== INÍCIO ===================== -->
+    <section class="screen" id="screen-home" data-screen="home">
+      <div class="hero">
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 640 220" class="ocean-art">
+            <defs>
+              <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sea-1)"/><stop offset="1" stop-color="var(--sea-2)"/></linearGradient>
+              <linearGradient id="sky" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--sky-1)"/><stop offset=".5" stop-color="var(--sky-2)"/><stop offset="1" stop-color="var(--sky-3)"/></linearGradient>
+            </defs>
+            <rect width="640" height="220" rx="28" fill="url(#sky)"/>
+            <circle cx="320" cy="150" r="46" fill="var(--sun)" opacity=".85"/>
+            <!-- Porto: casario e arco da ponte -->
+            <g class="shore left">
+              <path d="M0 150 L0 104 l18 0 0-14 14 0 0 10 12 0 0-22 9 -8 9 8 0 22 14 0 0-12 16 0 0 16 12 0 0-6 20 0 0 56 Z" fill="var(--land-1)"/>
+              <path d="M70 160 Q 128 92 186 160" fill="none" stroke="var(--land-2)" stroke-width="5"/>
+              <path d="M62 128 H196" stroke="var(--land-2)" stroke-width="4"/>
+              <g fill="var(--window)"><rect x="22" y="112" width="5" height="7" rx="1"/><rect x="48" y="96" width="4" height="6" rx="1"/><rect x="82" y="110" width="5" height="7" rx="1"/><rect x="104" y="122" width="5" height="6" rx="1"/></g>
+            </g>
+            <!-- Rio: Pão de Açúcar e Corcovado -->
+            <g class="shore right">
+              <path d="M640 160 L640 118 Q 616 72 596 110 Q 580 86 566 112 Q 548 132 520 128 Q 490 126 470 160 Z" fill="var(--land-1)"/>
+              <path d="M598 76 v-14 M592 68 h12" stroke="var(--land-2)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M520 128 Q 540 60 560 100" fill="none" stroke="var(--land-2)" stroke-width="1.5" stroke-dasharray="3 4"/>
+            </g>
+            <rect y="150" width="640" height="70" fill="url(#sea)"/>
+            <g class="waves" fill="none" stroke="var(--wave)" stroke-width="2" stroke-linecap="round" opacity=".7">
+              <path d="M30 172 q 15 -8 30 0 t 30 0 t 30 0"/><path d="M240 188 q 15 -8 30 0 t 30 0 t 30 0 t 30 0"/><path d="M470 176 q 15 -8 30 0 t 30 0 t 30 0"/><path d="M120 204 q 15 -8 30 0 t 30 0"/><path d="M420 206 q 15 -8 30 0 t 30 0"/>
+            </g>
+            <path id="flight" class="flight" d="M150 96 C 250 10, 400 10, 520 92" fill="none" stroke="var(--path)" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/>
+            <g class="flying-heart"><path d="M0 6 C-9 -1 -10 -8 -5 -10 C-2 -11 0 -9 0 -7 C0 -9 2 -11 5 -10 C10 -8 9 -1 0 6 Z" fill="var(--o)"/></g>
+            <text x="78" y="78" class="place">Porto</text><text x="512" y="62" class="place">Rio</text>
+          </svg>
+        </div>
+        <svg class="hero-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#logo-mark"/></svg>
+        <h1 class="title">Caça-Palavras <span>Online</span></h1>
+        <p class="title-sub">Desafio a Dois</p>
+        <p class="tagline">Olhos atentos, mente rápida e palavras escondidas!</p>
+        <p class="dedication" id="home-dedication">Projeto dedicado a Alberto e Bernardete.</p>
+      </div>
+
+      <div class="home-actions" id="home-actions">
+        <div class="card action-card" id="card-create">
+          <h2><svg class="ico"><use href="#i-play"/></svg> Criar uma sala</h2>
+          <p>Cria a sala, escolhe o jogo e envia o convite ao teu par.</p>
+          <form id="form-create" class="stack" autocomplete="off">
+            <label class="field"><span>O teu nome</span><input id="create-name" maxlength="20" required placeholder="Ex.: Alberto" /></label>
+            <button class="btn btn-primary btn-lg" type="submit"><svg class="ico"><use href="#i-play"/></svg> Criar sala</button>
+          </form>
+          <p class="form-msg" id="create-msg" role="alert"></p>
+        </div>
+        <div class="card action-card" id="card-join">
+          <h2><svg class="ico"><use href="#i-door"/></svg> Entrar numa sala</h2>
+          <p id="join-intro">Recebeste um convite? Escreve o código de 6 caracteres.</p>
+          <form id="form-join" class="stack" autocomplete="off">
+            <label class="field"><span>Código da sala</span><input id="join-code" maxlength="7" required placeholder="ABC234" class="code-input" autocapitalize="characters" spellcheck="false" /></label>
+            <div class="join-peek" id="join-peek" hidden></div>
+            <label class="field"><span>O teu nome</span><input id="join-name" maxlength="20" required placeholder="Ex.: Bernardete" /></label>
+            <button class="btn btn-secondary btn-lg" type="submit"><svg class="ico"><use href="#i-door"/></svg> Entrar</button>
+          </form>
+          <p class="form-msg" id="join-msg" role="alert"></p>
+        </div>
+      </div>
+
+      <div class="my-rooms" id="my-rooms" hidden>
+        <h3>As tuas salas</h3>
+        <div class="chips" id="my-rooms-list"></div>
+      </div>
+
+      <section class="home-section">
+        <h2 class="section-title">Dois modos, o mesmo carinho</h2>
+        <div class="mode-showcase">
+          <article class="mode-card coop">
+            <div class="mode-ico"><svg class="ico"><use href="#i-hands"/></svg></div>
+            <h3>Jogar juntos</h3>
+            <p>A mesma grelha, as mesmas palavras. Cada descoberta aparece aos dois na hora, com a cor de quem a encontrou. Pontuação e tempo em conjunto.</p>
+          </article>
+          <article class="mode-card versus">
+            <div class="mode-ico"><svg class="ico"><use href="#i-sword"/></svg></div>
+            <h3>Um contra o outro</h3>
+            <p>A mesma grelha para os dois, mas cada um por si. Vês a pontuação do teu par em tempo real — nunca as palavras que já encontrou.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="home-section" id="home-challenges-wrap" hidden>
+        <h2 class="section-title">Desafios</h2>
+        <div class="challenge-strip" id="home-challenges"></div>
+      </section>
+
+      <section class="home-section">
+        <h2 class="section-title">Categorias</h2>
+        <div class="cat-cloud" id="home-cats"></div>
+      </section>
+
+      <footer class="home-footer">
+        <p class="signature" id="home-phrase">Estamos juntos, amor… Sempre.</p>
+        <button class="link-btn" id="btn-records-home"><svg class="ico"><use href="#i-trophy"/></svg> Ver recordes</button>
+      </footer>
+    </section>
+
+    <!-- ===================== SALA DE ESPERA ===================== -->
+    <section class="screen" id="screen-lobby" data-screen="lobby" hidden>
+      <div class="lobby-grid">
+        <aside class="card lobby-people">
+          <h2 class="card-title">Sala <span class="code-big" id="lobby-code"></span></h2>
+          <p class="muted small" id="lobby-label"></p>
+          <div class="players" id="lobby-players"></div>
+          <div class="invite" id="lobby-invite">
+            <p class="small muted">Convida o teu par com o link ou com o código:</p>
+            <div class="invite-row"><input id="invite-link" readonly aria-label="Link de convite" /><button class="icon-btn solid" id="btn-copy-link" title="Copiar link"><svg class="ico"><use href="#i-copy"/></svg></button><button class="icon-btn solid" id="btn-share" title="Partilhar" hidden><svg class="ico"><use href="#i-share"/></svg></button></div>
+          </div>
+          <div class="lobby-tools">
+            <button class="btn btn-ghost btn-sm" id="btn-pass-host" hidden><svg class="ico"><use href="#i-crown"/></svg> Passar anfitrião</button>
+            <button class="btn btn-ghost btn-sm" id="btn-leave"><svg class="ico"><use href="#i-exit"/></svg> Sair da sala</button>
+          </div>
+          <div class="room-tally" id="room-tally"></div>
+        </aside>
+
+        <div class="card lobby-config">
+          <div class="cfg-head">
+            <h2 class="card-title">Preparar a partida</h2>
+            <span class="pill" id="cfg-who"></span>
+          </div>
+
+          <fieldset class="cfg-block">
+            <legend>Modo</legend>
+            <div class="mode-pick" id="cfg-mode">
+              <button class="mode-opt" data-mode="coop"><svg class="ico"><use href="#i-hands"/></svg><b>Jogar juntos</b><small>Pontuação conjunta</small></button>
+              <button class="mode-opt" data-mode="versus"><svg class="ico"><use href="#i-sword"/></svg><b>Um contra o outro</b><small>Cada um por si</small></button>
+            </div>
+          </fieldset>
+
+          <fieldset class="cfg-block" id="cfg-challenge-block">
+            <legend>Desafio especial <span class="muted">(opcional)</span></legend>
+            <div class="chips" id="cfg-challenges"></div>
+          </fieldset>
+
+          <div id="cfg-normal">
+            <fieldset class="cfg-block">
+              <legend>Dificuldade</legend>
+              <div class="seg" id="cfg-difficulty"></div>
+              <p class="muted small" id="cfg-diff-desc"></p>
+            </fieldset>
+            <div class="cfg-row">
+              <fieldset class="cfg-block">
+                <legend>Grelha</legend>
+                <div class="seg wrap" id="cfg-size"></div>
+              </fieldset>
+              <fieldset class="cfg-block">
+                <legend>Tempo</legend>
+                <select id="cfg-minutes" class="select"></select>
+              </fieldset>
+            </div>
+            <fieldset class="cfg-block">
+              <legend>Categoria</legend>
+              <div class="cat-grid" id="cfg-category"></div>
+            </fieldset>
+          </div>
+
+          <div class="cfg-actions">
+            <p class="muted small" id="start-hint"></p>
+            <button class="btn btn-ghost" id="btn-repeat" hidden><svg class="ico"><use href="#i-rotate"/></svg> Repetir a última grelha</button>
+            <button class="btn btn-primary btn-lg" id="btn-start"><svg class="ico"><use href="#i-play"/></svg> Começar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== JOGO ===================== -->
+    <section class="screen" id="screen-game" data-screen="game" hidden>
+      <div class="game-head">
+        <div class="gh-left">
+          <span class="cat-badge" id="g-cat"></span>
+          <span class="pill" id="g-mode"></span>
+          <span class="pill soft" id="g-diff"></span>
+        </div>
+        <div class="gh-timer" id="g-timer" title="Tempo"><svg class="ico"><use href="#i-clock"/></svg><span id="g-time">0:00</span></div>
+        <div class="gh-right">
+          <button class="btn btn-ghost btn-sm" id="btn-pause"><svg class="ico"><use href="#i-pause"/></svg><span>Pausa</span></button>
+          <button class="btn btn-ghost btn-sm" id="btn-giveup" hidden><svg class="ico"><use href="#i-flag"/></svg><span>Terminar</span></button>
+          <button class="btn btn-ghost btn-sm" id="btn-abort" hidden><svg class="ico"><use href="#i-x"/></svg><span>Interromper</span></button>
+        </div>
+      </div>
+
+      <div class="scorebar" id="scorebar"></div>
+      <div class="progress" aria-hidden="true"><div class="progress-fill" id="g-progress"></div><div class="progress-fill opp" id="g-progress-opp"></div></div>
+      <div class="banner" id="g-banner" hidden></div>
+
+      <div class="game-body">
+        <div class="board-wrap">
+          <div class="board" id="board" tabindex="0" role="grid" aria-label="Grelha de letras. Usa as setas para mover, Enter para marcar o início e o fim de uma palavra."></div>
+          <div class="board-cover" id="board-cover" hidden><div class="cover-card"><h3 id="cover-title">Em pausa</h3><p id="cover-text"></p><div class="cover-actions" id="cover-actions"></div></div></div>
+          <div class="float-msgs" id="float-msgs" aria-live="polite"></div>
+          <p class="kbd-help muted small">Arrasta sobre as letras (ou toca na primeira e na última). Teclado: setas + Enter.</p>
+        </div>
+        <aside class="words-panel card">
+          <div class="wp-head">
+            <h3>Palavras <span id="w-count"></span></h3>
+            <button class="btn btn-soft btn-sm" id="btn-hint"><svg class="ico"><use href="#i-bulb"/></svg> Pistas <span class="badge" id="hints-left"></span></button>
+          </div>
+          <ul class="word-list" id="word-list"></ul>
+          <p class="muted small" id="wp-foot"></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== RESULTADOS ===================== -->
+    <section class="screen" id="screen-results" data-screen="results" hidden>
+      <div class="results card" id="results-card">
+        <div class="res-head">
+          <div class="res-emblem" id="res-emblem"></div>
+          <h2 id="res-title"></h2>
+          <p class="res-sub" id="res-sub"></p>
+        </div>
+        <div class="res-scores" id="res-scores"></div>
+        <div class="res-table-wrap"><table class="res-table" id="res-table"></table></div>
+        <div class="res-special" id="res-special" hidden></div>
+        <blockquote class="closing" id="res-closing"></blockquote>
+        <div class="res-actions">
+          <button class="btn btn-ghost" id="btn-review"><svg class="ico"><use href="#i-target"/></svg> Ver a grelha resolvida</button>
+          <button class="btn btn-ghost" id="btn-res-stats"><svg class="ico"><use href="#i-chart"/></svg> Estatísticas</button>
+          <button class="btn btn-soft" id="btn-res-repeat" hidden><svg class="ico"><use href="#i-rotate"/></svg> Repetir esta grelha</button>
+          <button class="btn btn-secondary" id="btn-res-lobby"><svg class="ico"><use href="#i-home"/></svg> Sala de espera</button>
+          <button class="btn btn-primary" id="btn-res-new" hidden><svg class="ico"><use href="#i-play"/></svg> Nova partida</button>
+        </div>
+        <p class="muted small center" id="res-wait" hidden></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== CHAT ===================== -->
+  <button class="chat-fab" id="chat-fab" hidden aria-label="Abrir conversa"><svg class="ico"><use href="#i-chat"/></svg><span class="dot" id="chat-dot" hidden></span></button>
+  <aside class="chat" id="chat" hidden aria-label="Conversa">
+    <div class="chat-head">
+      <h3><svg class="ico"><use href="#i-chat"/></svg> Conversa</h3>
+      <div class="chat-head-actions">
+        <button class="icon-btn" id="btn-video-open" title="Videochamada" aria-label="Videochamada"><svg class="ico"><use href="#i-cam"/></svg></button>
+        <button class="icon-btn" id="chat-close" title="Fechar" aria-label="Fechar conversa"><svg class="ico"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="reactions" id="reactions"></div>
+    <ol class="chat-log" id="chat-log" aria-live="polite"></ol>
+    <div class="typing" id="typing" hidden><span></span><span></span><span></span> <em id="typing-name"></em></div>
+    <div class="quick" id="quick"></div>
+    <form class="chat-form" id="chat-form" autocomplete="off">
+      <button type="button" class="icon-btn" id="emoji-btn" aria-label="Emojis"><svg class="ico"><use href="#i-smile"/></svg></button>
+      <input id="chat-input" maxlength="500" placeholder="Escreve uma mensagem…" aria-label="Mensagem" />
+      <button class="icon-btn solid" type="submit" aria-label="Enviar"><svg class="ico"><use href="#i-send"/></svg></button>
+      <div class="emoji-pop" id="emoji-pop" hidden></div>
+    </form>
+  </aside>
+
+  <!-- ===================== VÍDEO ===================== -->
+  <section id="video-panel" class="video-panel" data-state="idle" hidden aria-label="Videochamada">
+    <div class="vp-bar" id="vp-bar"><span><svg class="ico"><use href="#i-cam"/></svg> Videochamada</span><span class="vp-btns"><button class="icon-btn" id="vp-min" title="Minimizar" aria-label="Minimizar"><svg class="ico"><use href="#i-minus"/></svg></button><button class="icon-btn" id="vp-close" title="Esconder (a chamada continua)" aria-label="Esconder"><svg class="ico"><use href="#i-x"/></svg></button></span></div>
+    <div class="video-stage">
+      <video id="remote-video" autoplay playsinline></video>
+      <div class="video-placeholder"><svg class="ico ico-xl"><use href="#i-cam"/></svg><span id="video-hint">Videochamada com o teu par</span></div>
+      <div id="remote-media" class="remote-media" hidden></div>
+      <video id="local-video" class="local-video" autoplay playsinline muted></video>
+      <span class="tag tag-remote" id="tag-remote"></span><span class="tag tag-local">Tu</span>
+    </div>
+    <div class="video-controls">
+      <button id="btn-call" class="ctrl ctrl-call"><svg class="ico"><use href="#i-phone"/></svg><span>Ligar</span></button>
+      <button id="btn-mic" class="ctrl" title="Microfone" disabled><svg class="ico"><use href="#i-mic"/></svg></button>
+      <button id="btn-cam" class="ctrl" title="Câmara" disabled><svg class="ico"><use href="#i-cam"/></svg></button>
+      <label class="ctrl vol" title="Volume da chamada"><svg class="ico"><use href="#i-volume"/></svg><input type="range" id="vol" min="0" max="100" value="100" aria-label="Volume da chamada" /></label>
+      <button id="btn-hangup" class="ctrl ctrl-hangup" title="Desligar" disabled><svg class="ico"><use href="#i-phone-off"/></svg></button>
+      <button id="btn-expand" class="ctrl" title="Ecrã inteiro"><svg class="ico"><use href="#i-expand"/></svg></button>
+    </div>
+    <p class="video-note">A chamada é direta entre os dois (WebRTC) e nunca é gravada.</p>
+  </section>
+  <div id="reactions-layer" class="reactions-layer" aria-hidden="true"></div>
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
+  <!-- ===================== JANELAS ===================== -->
+  <div id="modal-name" class="modal" hidden>
+    <div class="modal-card small">
+      <h2>Como te chamas?</h2>
+      <p class="muted" id="name-room-info"></p>
+      <form id="form-name" class="stack"><label class="field"><span>O teu nome</span><input id="name-input" maxlength="20" required /></label><button class="btn btn-primary" type="submit">Entrar na sala</button></form>
+      <p class="form-msg" id="name-msg" role="alert"></p>
+    </div>
+  </div>
+
+  <div id="modal-hint" class="modal" hidden>
+    <div class="modal-card small">
+      <button class="icon-btn modal-x" data-close aria-label="Fechar"><svg class="ico"><use href="#i-x"/></svg></button>
+      <h2><svg class="ico"><use href="#i-bulb"/></svg> Pedir uma pista</h2>
+      <p class="muted small" id="hint-info"></p>
+      <label class="field"><span>Para que palavra?</span><select id="hint-word" class="select"></select></label>
+      <div class="hint-kinds" id="hint-kinds"></div>
+      <p class="form-msg" id="hint-msg" role="alert"></p>
+    </div>
+  </div>
+
+  <div id="modal-confirm" class="modal" hidden>
+    <div class="modal-card small center">
+      <h2 id="confirm-title"></h2>
+      <p id="confirm-text" class="muted"></p>
+      <div class="modal-actions center"><button class="btn btn-ghost" id="confirm-no">Cancelar</button><button class="btn btn-primary" id="confirm-yes">Confirmar</button></div>
+    </div>
+  </div>
+
+  <div id="modal-call" class="modal" hidden>
+    <div class="modal-card small center">
+      <div class="call-pulse"><svg class="ico ico-xl"><use href="#i-phone"/></svg></div>
+      <h2><span id="call-from">O teu par</span> está a ligar</h2>
+      <div class="modal-actions center"><button id="call-decline" class="btn btn-danger">Recusar</button><button id="call-accept" class="btn btn-primary">Atender</button></div>
+    </div>
+  </div>
+
+  <div id="modal-stats" class="modal" hidden>
+    <div class="modal-card wide">
+      <button class="icon-btn modal-x" data-close aria-label="Fechar"><svg class="ico"><use href="#i-x"/></svg></button>
+      <h2><svg class="ico"><use href="#i-chart"/></svg> Estatísticas e recordes</h2>
+      <div class="tabs" role="tablist" id="stats-tabs">
+        <button role="tab" data-tab="room" class="tab">Nós dois</button>
+        <button role="tab" data-tab="mine" class="tab">Eu</button>
+        <button role="tab" data-tab="ranking" class="tab">Recordes</button>
+        <button role="tab" data-tab="matches" class="tab">Partidas</button>
+      </div>
+      <div class="tab-body" id="stats-body"></div>
+    </div>
+  </div>
+
+  <div id="modal-review" class="modal" hidden>
+    <div class="modal-card wide">
+      <button class="icon-btn modal-x" data-close aria-label="Fechar"><svg class="ico"><use href="#i-x"/></svg></button>
+      <h2 id="review-title">Partida</h2>
+      <p class="muted small" id="review-sub"></p>
+      <div class="review-body"><div class="board review" id="review-board"></div><ul class="word-list compact" id="review-words"></ul></div>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="conn" class="conn" hidden>A ligar ao servidor…</div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="sound.js"></script>
+  <script src="grid.js"></script>
+  <script src="charts.js"></script>
+  <script src="video.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

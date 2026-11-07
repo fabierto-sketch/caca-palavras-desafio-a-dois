@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Painel — Caça-Palavras a Dois</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Lexend:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin" data-theme="light">
+  <div class="backdrop" aria-hidden="true"><div class="bg-tiles"></div><div class="bg-glow g1"></div><div class="bg-glow g2"></div><div class="bg-stars"></div></div>
+
+  <!-- Entrada -->
+  <div id="login" class="login-wrap" hidden>
+    <form id="login-form" class="card login-card" autocomplete="off">
+      <div class="login-logo">🔐</div>
+      <h1>Painel de administração</h1>
+      <p class="muted small">Caça-Palavras Online – Desafio a Dois</p>
+      <label class="field"><span>Palavra-passe</span><input id="login-pass" type="password" autocomplete="current-password" required /></label>
+      <button class="btn btn-primary" type="submit">Entrar</button>
+      <p id="login-error" class="form-msg" role="alert"></p>
+      <a class="small" href="/">← Voltar ao jogo</a>
+    </form>
+  </div>
+
+  <!-- Painel -->
+  <div id="app" class="admin-shell" hidden>
+    <header class="admin-bar">
+      <a class="admin-brand" href="/">🔤 <b>Caça-Palavras</b> <small>painel</small></a>
+      <nav class="admin-tabs" id="tabs">
+        <button data-tab="overview">Resumo</button>
+        <button data-tab="rooms">Salas</button>
+        <button data-tab="words">Categorias e palavras</button>
+        <button data-tab="challenges">Desafios</button>
+        <button data-tab="matches">Partidas</button>
+        <button data-tab="players">Jogadores</button>
+        <button data-tab="settings">Definições</button>
+        <button data-tab="maintenance">Manutenção</button>
+      </nav>
+      <div class="admin-actions">
+        <button class="icon-btn" id="btn-theme" title="Modo claro / escuro">🌓</button>
+        <button class="btn btn-ghost btn-sm" id="btn-logout">Sair</button>
+      </div>
+    </header>
+    <main class="admin-main" id="view"></main>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card wide">
+      <button class="icon-btn modal-x" data-close aria-label="Fechar">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="charts.js"></script>
+  <script src="grid.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
