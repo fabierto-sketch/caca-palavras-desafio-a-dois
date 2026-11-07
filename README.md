@@ -61,6 +61,7 @@ Caça-palavras online para duas pessoas, cada uma no seu computador ou telemóve
 
 ### Salas, convívio e vídeo
 - **Salas sem contas**
+  - **Criar uma sala pede uma palavra-passe**, verificada no servidor (8 tentativas erradas bloqueiam 15 minutos). É a de `ROOM_PASSWORD` ou, se essa variável não existir, a do painel (`ADMIN_PASSWORD`). Quem é convidado entra só com o nome, sem palavra-passe. Pode desligar-se no painel.
   - Criar uma sala gera um código único de 6 caracteres e um link de convite (`/sala/CÓDIGO`). Os nomes são escritos por cada um.
   - O anfitrião escolhe modo, dificuldade, categoria, grelha, tempo e desafio; a outra pessoa vê tudo em tempo real.
   - Há indicação de quem está ligado e um terceiro jogador é recusado.
@@ -234,6 +235,7 @@ Em alternativa, descompacte o zip no computador e arraste **o conteúdo da pasta
 | `ADMIN_PASSWORD` | a sua palavra-passe do painel (mínimo 6 caracteres) |
 | `DATABASE_URL` | a ligação do Neon |
 | `NODE_ENV` | `production` |
+| `ROOM_PASSWORD` | opcional: palavra-passe para criar salas, se a quiser diferente da do painel |
 | `TURN_URL`, `TURN_USERNAME`, `TURN_CREDENTIAL` | opcionais (secção 5) |
 
 4. **Create Web Service.** Nos *Logs* deve aparecer `Caça-Palavras Online a funcionar na porta …` e `base de dados postgres`.
@@ -278,13 +280,14 @@ Também pode usar **New → Blueprint** com o `render.yaml` incluído (pede `ADM
 ## 7. Testes realizados
 
 ### Automáticos — `npm test`
-`test/run-tests.js` tem **25 testes**: 10 do gerador e das regras, e 15 com o servidor verdadeiro, jogado por Socket.IO como dois navegadores.
-- **Resultado:** **25/25 aprovados com SQLite** e **25/25 com PostgreSQL 16** (local).
+`test/run-tests.js` tem **26 testes**: 10 do gerador e das regras, e 16 com o servidor verdadeiro, jogado por Socket.IO como dois navegadores.
+- **Resultado:** **26/26 aprovados com SQLite** e **26/26 com PostgreSQL 16** (local).
 - **Gerador:** as 6 dimensões × 4 dificuldades × 4 categorias (96 grelhas) são todas verificadas; as 8 direções aparecem; cada palavra aparece exatamente uma vez; a mesma semente dá a mesma grelha; os acentos são normalizados.
 - **Validação:** sentido direto e inverso; seleção curta, torta ou fora da grelha é recusada.
 - **Regras:** pontos por comprimento, sem duplicados, penalização, pistas (custos, limite, partilha, «revelar» desligado), vencedor, empate e bónus de quem termina primeiro.
 - **Servidor:**
   - `/health`;
+  - criar sala sem palavra-passe ou com a errada é recusado, e a palavra-passe não aparece no código do navegador;
   - salas: código e convite, terceiro jogador recusado, código inválido ou inexistente, só o anfitrião configura, evento desconhecido recusado;
   - modo juntos sincronizado e com quem encontrou;
   - desafio sem fuga de informação do adversário (nem no estado, nem nos eventos) e com pistas independentes;

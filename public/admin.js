@@ -504,7 +504,7 @@
     ['Pontuação', ['pointsShort', 'pointsMedium', 'pointsLong', 'pointsVeryLong', 'secretBonus', 'completionBonus', 'firstFinishBonus', 'speedBonusPerSecond', 'parSecondsPerWord', 'wrongPenalty']],
     ['Pistas', ['hintLetterCost', 'hintDirectionCost', 'hintZoneCost', 'hintTextCost', 'hintRevealCost', 'allowReveal', 'maxHintsFacil', 'maxHintsMedio', 'maxHintsDificil', 'maxHintsEspecialista', 'zoneSeconds']],
     ['Tempo e grelhas', ['minutesFacil', 'minutesMedio', 'minutesDificil', 'minutesEspecialista', 'lowTimeSeconds', 'pauseMode', 'extraSizes']],
-    ['Salas e convívio', ['playersCanCreateRooms', 'chatEnabled', 'reactionsEnabled', 'videoEnabled', 'playersCanClearHistory']],
+    ['Salas e convívio', ['playersCanCreateRooms', 'createRoomNeedsPassword', 'chatEnabled', 'reactionsEnabled', 'videoEnabled', 'playersCanClearHistory']],
   ];
   async function settingsTab() {
     const r = await api('GET', '/settings');

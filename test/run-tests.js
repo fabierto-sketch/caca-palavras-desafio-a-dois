@@ -213,8 +213,8 @@ async function startServer() {
 }
 
 const emit = (s, e, p = {}) => new Promise((r) => s.emit(e, p, r));
-async function newRoom() {
-  const r = await fetch(`${BASE}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+async function newRoom(password = PASS) {
+  const r = await fetch(`${BASE}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }) });
   return r.json();
 }
 async function player(code, name, extra = {}) {
@@ -268,6 +268,17 @@ test('servidor', async (t) => {
     const j = await r.json();
     assert.equal(r.status, 200);
     assert.ok(j.ok);
+  });
+
+  await t.test('criar sala exige a palavra-passe (verificada no servidor)', async () => {
+    const no = await fetch(`${BASE}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    assert.equal(no.status, 401);
+    const wrong = await newRoom('errada');
+    assert.equal(wrong.error, 'INVALID_PASSWORD');
+    const ok = await newRoom();
+    assert.ok(ok.ok && ok.code);
+    const html = await (await fetch(`${BASE}/app.js`)).text();
+    assert.ok(!html.includes(PASS), 'a palavra-passe não está no código do navegador');
   });
 
   await t.test('salas: código de 6 caracteres, convite, terceiro jogador bloqueado, códigos inválidos', async () => {

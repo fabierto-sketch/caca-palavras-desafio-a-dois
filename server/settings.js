@@ -55,6 +55,7 @@ const SCHEMA = {
   pauseMode: { type: 'enum', values: ['both', 'host', 'off'], def: 'both', label: 'Pausa (both = os dois concordam, host = só o anfitrião, off = sem pausa)' },
   extraSizes: { type: 'sizes', def: [], label: 'Dimensões adicionais das grelhas' },
   // salas e convívio
+  createRoomNeedsPassword: { type: 'bool', def: true, label: 'Pedir palavra-passe para criar salas na página inicial (ROOM_PASSWORD ou, se não existir, a do painel)' },
   playersCanCreateRooms: { type: 'bool', def: true, label: 'Os jogadores podem criar salas na página inicial' },
   chatEnabled: { type: 'bool', def: true, label: 'Chat' },
   reactionsEnabled: { type: 'bool', def: true, label: 'Reações' },

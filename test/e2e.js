@@ -113,6 +113,7 @@ async function step(name, fn) {
   let invite;
   await step('criar sala e entrar pelo link de convite', async () => {
     await A.fill('#create-name', 'Alberto');
+    await A.fill('#create-pass', 'e2e-segredo');
     await A.click('#form-create button');
     await A.waitForSelector('#screen-lobby:not([hidden])');
     invite = await A.inputValue('#invite-link');

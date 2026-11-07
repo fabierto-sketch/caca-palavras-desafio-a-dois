@@ -60,6 +60,14 @@ class RateLimiter {
     return true;
   }
 
+  /** Ainda há margem? (não conta como tentativa) */
+  check(key) {
+    const list = this.hits.get(key);
+    if (!list) return true;
+    const cutoff = Date.now() - this.windowMs;
+    return list.filter((t) => t > cutoff).length < this.max;
+  }
+
   reset(key) {
     this.hits.delete(key);
   }

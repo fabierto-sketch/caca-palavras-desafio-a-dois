@@ -13,7 +13,7 @@ const express = require('express');
 const { Server } = require('socket.io');
 
 const logger = require('./server/logger');
-const { securityHeaders, rateLimitMiddleware, RateLimiter, cleanText } = require('./server/security');
+const { securityHeaders, rateLimitMiddleware, RateLimiter, cleanText, safeEqual } = require('./server/security');
 const { Database } = require('./server/database');
 const { Settings } = require('./server/settings');
 const { Words } = require('./server/words');
@@ -75,11 +75,24 @@ async function start({ port = process.env.PORT || 3000, listen = true } = {}) {
 
   // criar sala (sem conta): o primeiro a entrar fica anfitrião
   const createLimiter = new RateLimiter({ windowMs: 60 * 60_000, max: Number(process.env.ROOMS_PER_HOUR || 12) });
+  const createFailLimiter = new RateLimiter({ windowMs: 15 * 60_000, max: 8 });
+  // palavra-passe para criar salas: ROOM_PASSWORD, ou a do painel (ADMIN_PASSWORD) se não houver outra
+  const roomPassword = () => process.env.ROOM_PASSWORD || process.env.ADMIN_PASSWORD || '';
   app.post(
     '/api/rooms',
     express.json({ limit: '4kb' }),
     wrap(async (req, res) => {
       if (!settings.get('playersCanCreateRooms')) return res.status(403).json({ ok: false, error: 'FORBIDDEN', message: 'De momento as salas só são criadas pelo administrador.' });
+      if (settings.get('createRoomNeedsPassword')) {
+        const given = req.body && typeof req.body.password === 'string' ? req.body.password : '';
+        if (!roomPassword()) return res.status(503).json({ ok: false, error: 'NOT_CONFIGURED', message: 'A palavra-passe para criar salas não está configurada no servidor.' });
+        if (!createFailLimiter.check(req.ip)) return res.status(429).json({ ok: false, error: 'RATE_LIMITED', message: 'Demasiadas tentativas erradas. Aguarda 15 minutos.' });
+        if (!safeEqual(given, roomPassword())) {
+          createFailLimiter.hit(req.ip);
+          logger.warn(`Tentativa de criar sala com palavra-passe errada [${req.ip}]`);
+          return res.status(401).json({ ok: false, error: 'INVALID_PASSWORD', message: 'Palavra-passe incorreta.' });
+        }
+      }
       if (!createLimiter.hit(req.ip)) return res.status(429).json({ ok: false, error: 'RATE_LIMITED', message: 'Criaste demasiadas salas. Tenta mais tarde.' });
       try {
         const r = await manager.createRoom({ label: cleanText((req.body && req.body.label) || '', 40), by: 'player' });

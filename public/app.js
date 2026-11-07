@@ -256,6 +256,9 @@
       .map((c) => `<div class="challenge"><b>${esc(c.name)}</b><p>${esc(c.description || '')}</p><span class="pill ${c.available ? '' : 'soft'}">${c.available ? (c.seconds ? `⏱ ${fmtTime(c.seconds * 1000)}` : 'Disponível') : 'Disponível ao fim de semana'}</span></div>`)
       .join('');
     $('#card-create').hidden = st.playersCanCreateRooms === false;
+    $('#create-pass-wrap').hidden = !st.createRoomNeedsPassword;
+    $('#create-pass').required = !!st.createRoomNeedsPassword;
+    if (st.createRoomNeedsPassword) $('#create-intro').textContent = 'Só quem sabe a palavra-passe cria salas. O teu par entra depois pelo convite, sem palavra-passe.';
     if (st.welcomeMessage) $('.tagline').textContent = st.welcomeMessage;
     const name = store.get('name', '');
     if (name) {
@@ -280,8 +283,10 @@
     const btn = e.submitter || $('#form-create button');
     btn.disabled = true;
     try {
-      const r = await fetch('/api/rooms', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+      const password = $('#create-pass').value;
+      const r = await fetch('/api/rooms', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }) });
       const data = await r.json().catch(() => ({}));
+      $('#create-pass').value = ''; // a palavra-passe nunca fica guardada no navegador
       if (!r.ok || !data.ok) {
         msg.textContent = data.message || 'Não foi possível criar a sala.';
         return;

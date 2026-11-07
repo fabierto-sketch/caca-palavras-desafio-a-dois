@@ -156,9 +156,10 @@
       <div class="home-actions" id="home-actions">
         <div class="card action-card" id="card-create">
           <h2><svg class="ico"><use href="#i-play"/></svg> Criar uma sala</h2>
-          <p>Cria a sala, escolhe o jogo e envia o convite ao teu par.</p>
+          <p id="create-intro">Cria a sala, escolhe o jogo e envia o convite ao teu par.</p>
           <form id="form-create" class="stack" autocomplete="off">
             <label class="field"><span>O teu nome</span><input id="create-name" maxlength="20" required placeholder="Ex.: Alberto" /></label>
+            <label class="field" id="create-pass-wrap"><span>Palavra-passe para criar salas</span><input id="create-pass" type="password" autocomplete="current-password" maxlength="200" /></label>
             <button class="btn btn-primary btn-lg" type="submit"><svg class="ico"><use href="#i-play"/></svg> Criar sala</button>
           </form>
           <p class="form-msg" id="create-msg" role="alert"></p>
