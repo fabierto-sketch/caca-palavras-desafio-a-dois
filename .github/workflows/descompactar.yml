@@ -1,0 +1,33 @@
+name: Descompactar zip
+on:
+  push:
+    paths:
+      - '*.zip'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descompactar
+        run: |
+          shopt -s nullglob
+          for z in *.zip; do
+            rm -rf /tmp/unz && mkdir -p /tmp/unz
+            unzip -o -q "$z" -d /tmp/unz
+            entries=(/tmp/unz/* /tmp/unz/.[!.]*)
+            if [ ${#entries[@]} -eq 1 ] && [ -d "${entries[0]}" ]; then src="${entries[0]}"; else src=/tmp/unz; fi
+            rm -rf "$src/.github"
+            cp -a "$src"/. .
+            git rm -q --cached "$z" || true
+            rm -f "$z"
+          done
+      - name: Guardar alterações
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Descompactar projeto"
+          git push
